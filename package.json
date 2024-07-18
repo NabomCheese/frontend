@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 24590",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 24590",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "react": "^18",
     "react-dom": "^18",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "styled-components": "^6.1.11"
   },
   "devDependencies": {

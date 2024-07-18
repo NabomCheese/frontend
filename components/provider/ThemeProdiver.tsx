@@ -3,21 +3,15 @@ import { ThemeProvider as CustomThemeProvider } from 'styled-components';
 import { Dark, Light } from '@/theme';
 import { useRecoilState } from 'recoil';
 import { themeState } from '@/recoil/theme';
-import Theme from '@/theme/types/theme';
+import ThemeTypes from '@/theme/types/theme';
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = (props) => {
-  const [currentTheme, setCurrentTheme] = useRecoilState(themeState);
+  const [currentTheme, setCurrentTheme] = useRecoilState<ThemeTypes>(themeState);
 
   React.useEffect(() => {
-    const getCurrentTheme = () =>
-      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? Theme.dark
-        : Theme.light;
-
-    setCurrentTheme(getCurrentTheme());
-
     const handleThemeChange = (event: MediaQueryListEvent) => {
-      setCurrentTheme(event.matches ? Theme.dark : Theme.light);
+      const newTheme = event.matches ? ThemeTypes.dark : ThemeTypes.light;
+      setCurrentTheme(newTheme);
     };
 
     const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
@@ -29,7 +23,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = (props) =>
   }, [setCurrentTheme]);
 
   return (
-    <CustomThemeProvider theme={{ colors: currentTheme === Theme.dark ? Dark : Light }}>
+    <CustomThemeProvider theme={{ colors: currentTheme === ThemeTypes.dark ? Dark : Light }}>
       {props.children}
     </CustomThemeProvider>
   );
